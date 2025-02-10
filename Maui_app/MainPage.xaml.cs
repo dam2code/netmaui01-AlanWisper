@@ -53,21 +53,13 @@ public partial class MainPage : ContentPage
     {
         Resources["fgColor"] = colorNavy;
         Resources["bgColor"] = colorSilver;
-        tipLabel.TextColor = colorNavy;
-        billLabel.TextColor = colorNavy;
-        totalLabel.TextColor = colorNavy;
-        tipOutput.TextColor = colorNavy;
-        totalOutput.TextColor = colorNavy;
+       
     }
 
     void OnDark(object sender, EventArgs e)
     {
-        LayoutRoot.BackgroundColor = colorNavy;
-
-        tipLabel.TextColor = colorSilver;
-        billLabel.TextColor = colorSilver;
-        totalLabel.TextColor = colorSilver;
-        tipOutput.TextColor = colorSilver;
-        totalOutput.TextColor = colorSilver;
+        Resources["fgColor"] = colorNavy;
+        Resources["bgColor"] = colorSilver;
+        
     }
 }
