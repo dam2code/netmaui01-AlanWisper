@@ -1,51 +1,38 @@
-﻿namespace Phoneword;
+﻿using System.Diagnostics;
+
+namespace MauiCode;
 
 public partial class MainPage : ContentPage
 {
+    Button loginButton;
+    VerticalStackLayout layout;
+
     public MainPage()
     {
-        InitializeComponent();
-    }
-    string translatedNumber;
+        this.BackgroundColor = Color.FromArgb("512bdf");
 
-    private void OnTranslate(object sender, EventArgs e)
-    {
-        string enteredNumber = PhoneNumberText.Text;
-        translatedNumber = Core.PhonewordTranslator.ToNumber(enteredNumber);
+        layout = new VerticalStackLayout
+        {
+            Margin = new Thickness(15, 15, 15, 15),
+            Padding = new Thickness(30, 60, 30, 30),
+            Children =
+            {
+                new Label { Text = "Please log in", FontSize = 30, TextColor = Color.FromRgb(255, 255, 100) },
+                new Label { Text = "Username", TextColor = Color.FromRgb(255, 255, 255) },
+                new Entry (),
+                new Label { Text = "Password", TextColor = Color.FromRgb(255, 255, 255) },
+                new Entry { IsPassword = true }
+            }
+        };
 
-        if (!string.IsNullOrEmpty(translatedNumber))
+        loginButton = new Button { Text = "Login", BackgroundColor = Color.FromRgb(0, 148, 255) };
+        layout.Children.Add(loginButton);
+
+        Content = layout;
+
+        loginButton.Clicked += (sender, e) =>
         {
-            CallButton.IsEnabled = true;
-            CallButton.Text = "Call " + translatedNumber;
-        }
-        else
-        {
-            CallButton.IsEnabled = false;
-            CallButton.Text = "Call";
-        }
-    }
-    async void OnCall(object sender, System.EventArgs e)
-    {
-        if (await this.DisplayAlert(
-         "Dial a Number",
-         "Would you like to call " + translatedNumber + "?",
-         "Yes",
-         "No"))
-        {
-            try
-            {
-                if (PhoneDialer.Default.IsSupported)
-                    PhoneDialer.Default.Open(translatedNumber);
-            }
-            catch (ArgumentNullException)
-            {
-                await DisplayAlert("Unable to dial", "Phone number was not valid.", "OK");
-            }
-            catch (Exception)
-            {
-                // Other error has occurred.
-                await DisplayAlert("Unable to dial", "Phone dialing failed.", "OK");
-            }
-        }
+            Debug.WriteLine("Clicked !");
+        };
     }
 }
