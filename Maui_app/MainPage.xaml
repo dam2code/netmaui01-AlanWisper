@@ -4,12 +4,24 @@
              x:Class="MauiXaml.Page1"
              BackgroundColor="#512bdf">
 
-    <VerticalStackLayout Margin="15" Padding="30, 60, 30, 30">
-        <Label Text="Please log in" FontSize="30" TextColor="AntiqueWhite"/>
-        <Label Text="Username" TextColor="White" />
-        <Entry />
-        <Label Text="Password" TextColor="White" />
-        <Entry IsPassword="True" />
-        <Button Text="Log in" BackgroundColor="#0094FF" Clicked="LoginButton_Clicked" />
-    </VerticalStackLayout>
+    <ContentPage ...>
+        <VerticalStackLayout Margin="30,60,30,30">
+            <Label Text="Notes"
+               HorizontalOptions="Center"
+               FontAttributes="Bold" />
+            <Editor x:Name="editor"
+                Placeholder="Enter your note"
+                HeightRequest="100" />
+            <Grid ColumnDefinitions="Auto, 30, Auto">
+                <Button Grid.Column="0"
+                    Text="Save" 
+                    WidthRequest="100"
+                    Clicked="OnSaveButtonClicked" />
+                <Button Grid.Column="2"
+                    Text="Delete" 
+                     WidthRequest="100"
+                    Clicked="OnDeleteButtonClicked" />
+            </Grid>
+        </VerticalStackLayout>
+    </ContentPage>
 </ContentPage>
