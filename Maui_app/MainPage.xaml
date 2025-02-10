@@ -8,18 +8,22 @@
         <VerticalStackLayout Margin="30,60,30,30">
             <Label Text="Notes"
                HorizontalOptions="Center"
-               FontAttributes="Bold" />
+               FontAttributes="Bold"
+                TextColor="{x:Static Member=notes:SharedResources.FontColor}" />
             <Editor x:Name="editor"
                 Placeholder="Enter your note"
-                HeightRequest="100" />
+                HeightRequest="{OnPlatform 100, Android=500, iOS=500}" 
+                TextColor="{x:Static Member=notes:SharedResources.FontColor}" />
             <Grid ColumnDefinitions="Auto, 30, Auto">
                 <Button Grid.Column="0"
                     Text="Save" 
+                    TextColor="{x:Static Member=notes:SharedResources.FontColor}"
                     WidthRequest="100"
                     Clicked="OnSaveButtonClicked" />
                 <Button Grid.Column="2"
                     Text="Delete" 
-                     WidthRequest="100"
+                    TextColor="{x:Static Member=notes:SharedResources.FontColor}"
+                    WidthRequest="100"
                     Clicked="OnDeleteButtonClicked" />
             </Grid>
         </VerticalStackLayout>
