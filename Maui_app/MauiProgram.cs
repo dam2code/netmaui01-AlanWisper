@@ -1,16 +1,25 @@
 ﻿using System.Diagnostics;
-
+using Microsoft.Extensions.Logging;
 namespace MauiXaml;
 
-public partial class Page1 : ContentPage, IPage
-{
-    public Page1()
-    {
-        InitializeComponent();
-    }
 
-    void LoginButton_Clicked(object sender, EventArgs e)
+public static class MauiProgram
+{
+    public static MauiApp CreateMauiApp()
     {
-        Debug.WriteLine("Clicked !");
+        var builder = MauiApp.CreateBuilder();
+        builder
+            .UseMauiApp<App>()
+            .ConfigureFonts(fonts =>
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+            });
+
+#if DEBUG
+        builder.Logging.AddDebug();
+#endif
+
+        return builder.Build();
     }
 }
