@@ -6,6 +6,7 @@
         {
             //comentario
             InitializeComponent();
+            Routing.RegisterRoute("astronomicalbodydetails", typeof(AstronomicalBodyPage));
         }
     }
 }
