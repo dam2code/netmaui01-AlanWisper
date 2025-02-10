@@ -23,7 +23,8 @@
           ColumnDefinitions="*,2*"
           RowDefinitions="Auto, Auto, Auto, *">
 
-        <Label x:Name="billLabel"  Text="Bill"  TextColor="{DynamicResource fgColor}" Style="{StaticResource infoLabelStyle}" FontSize="22" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" />
+        <Label x:Name="billLabel" Text="Bill" Style="{StaticResource infoLabelStyle}" Grid.Row="0" Grid.Column="0" />
+
         <Label x:Name="tipLabel"   Text="Tip"  TextColor="{DynamicResource fgColor}" Style="{StaticResource infoLabelStyle}" FontSize="22" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" />
         <Label x:Name="totalLabel" Text="Total" TextColor="{DynamicResource fgColor}" Style="{StaticResource infoLabelStyle}" FontSize="22" FontAttributes="Bold" Grid.Row="2" Grid.Column="0" />
 
