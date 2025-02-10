@@ -1,24 +1,59 @@
 ﻿using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using System.Diagnostics;
+using UIKit;
 
 namespace Maui_app;
 
 public partial class MainPage : ContentPage
 {
+    private Color colorNavy = Colors.Navy;
+    private Color colorSilver = Colors.Silver;
 
-    public MainPage()
+    public StandardTipPage()
     {
         InitializeComponent();
+        billInput.TextChanged += (s, e) => CalculateTip();
     }
 
-    void OnHorizontalStartClicked(object sender, EventArgs e) { target.HorizontalOptions = LayoutOptions.Start; }
-    void OnHorizontalCenterClicked(object sender, EventArgs e) { target.HorizontalOptions = LayoutOptions.Center; }
-    void OnHorizontalEndClicked(object sender, EventArgs e) { target.HorizontalOptions = LayoutOptions.End; }
-    void OnHorizontalFillClicked(object sender, EventArgs e) { target.HorizontalOptions = LayoutOptions.Fill; }
+    void CalculateTip()
+    {
+        double bill;
 
-    void OnVerticalStartClicked(object sender, EventArgs e) { target.VerticalOptions = LayoutOptions.Start; }
-    void OnVerticalCenterClicked(object sender, EventArgs e) { target.VerticalOptions = LayoutOptions.Center; }
-    void OnVerticalEndClicked(object sender, EventArgs e) { target.VerticalOptions = LayoutOptions.End; }
-    void OnVerticalFillClicked(object sender, EventArgs e) { target.VerticalOptions = LayoutOptions.Fill; }
+        if (Double.TryParse(billInput.Text, out bill) && bill > 0)
+        {
+            double tip = Math.Round(bill * 0.15, 2);
+            double final = bill + tip;
+
+            tipOutput.Text = tip.ToString("C");
+            totalOutput.Text = final.ToString("C");
+        }
+    }
+
+    void OnLight(object sender, EventArgs e)
+    {
+        LayoutRoot.BackgroundColor = colorSilver;
+
+        tipLabel.TextColor = colorNavy;
+        billLabel.TextColor = colorNavy;
+        totalLabel.TextColor = colorNavy;
+        tipOutput.TextColor = colorNavy;
+        totalOutput.TextColor = colorNavy;
+    }
+
+    void OnDark(object sender, EventArgs e)
+    {
+        LayoutRoot.BackgroundColor = colorNavy;
+
+        tipLabel.TextColor = colorSilver;
+        billLabel.TextColor = colorSilver;
+        totalLabel.TextColor = colorSilver;
+        tipOutput.TextColor = colorSilver;
+        totalOutput.TextColor = colorSilver;
+    }
+
+    async void GotoCustom(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(CustomTipPage));
+    }
 }

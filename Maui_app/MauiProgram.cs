@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 namespace MauiXaml;
 
-
 public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
