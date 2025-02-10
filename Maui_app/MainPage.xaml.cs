@@ -7,23 +7,42 @@ namespace Maui_app;
 
 public partial class MainPage : ContentPage
 {
-    private Color colorNavy = Colors.Navy;
-    private Color colorSilver = Colors.Silver;
-
-    public StandardTipPage()
+    public CustomTipPage()
     {
         InitializeComponent();
-        billInput.TextChanged += (s, e) => CalculateTip();
+
+        billInput.TextChanged += (s, e) => CalculateTip(false, false);
+        roundDown.Clicked += (s, e) => CalculateTip(false, true);
+        roundUp.Clicked += (s, e) => CalculateTip(true, false);
+
+        tipPercentSlider.ValueChanged += (s, e) =>
+        {
+            double pct = Math.Round(e.NewValue);
+            tipPercent.Text = $"{pct}%";
+            CalculateTip(false, false);
+        };
     }
 
-    void CalculateTip()
+    void CalculateTip(bool roundUp, bool roundDown)
     {
-        double bill;
-
-        if (Double.TryParse(billInput.Text, out bill) && bill > 0)
+        double t;
+        if (Double.TryParse(billInput.Text, out t) && t > 0)
         {
-            double tip = Math.Round(bill * 0.15, 2);
-            double final = bill + tip;
+            double pct = Math.Round(tipPercentSlider.Value);
+            double tip = Math.Round(t * (pct / 100.0), 2);
+
+            double final = t + tip;
+
+            if (roundUp)
+            {
+                final = Math.Ceiling(final);
+                tip = final - t;
+            }
+            else if (roundDown)
+            {
+                final = Math.Floor(final);
+                tip = final - t;
+            }
 
             tipOutput.Text = tip.ToString("C");
             totalOutput.Text = final.ToString("C");
@@ -32,8 +51,8 @@ public partial class MainPage : ContentPage
 
     void OnLight(object sender, EventArgs e)
     {
-        LayoutRoot.BackgroundColor = colorSilver;
-
+        Resources["fgColor"] = colorNavy;
+        Resources["bgColor"] = colorSilver;
         tipLabel.TextColor = colorNavy;
         billLabel.TextColor = colorNavy;
         totalLabel.TextColor = colorNavy;
@@ -50,10 +69,5 @@ public partial class MainPage : ContentPage
         totalLabel.TextColor = colorSilver;
         tipOutput.TextColor = colorSilver;
         totalOutput.TextColor = colorSilver;
-    }
-
-    async void GotoCustom(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync(nameof(CustomTipPage));
     }
 }
