@@ -8,7 +8,7 @@
     Title="Maui_app7">
 
     <ShellContent
-        Title="Home"
+        Title="People"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
