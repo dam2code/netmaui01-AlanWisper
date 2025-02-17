@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Maui_app8.Models
 {
-    internal class WeatherData
-    {
-    }
+    public readonly record struct WeatherData(int Temperature,
+                                           int Precipitation,
+                                           int Humidity,
+                                           int Wind,
+                                           WeatherType Condition);
 }
